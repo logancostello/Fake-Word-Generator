@@ -1,3 +1,6 @@
+import random
+
+
 def load_words():
     with open('words_alpha.txt') as word_file:
         valid_words = list(word_file.read().split())
@@ -7,7 +10,7 @@ def load_words():
 def create_empty_edge_list():
     # create hashmap with english letters as keys (nodes in our graph)
     letters = [chr(i) for i in range(ord('a'), ord('z') + 1)]
-    graph = {letter: 0 for letter in letters + ['.']}
+    graph = {letter: 0 for letter in ['#'] + letters + ['.']}
 
     # set values to hashmap for tracking frequencies of following chars
     freq = graph.copy()
@@ -23,10 +26,18 @@ def count_frequencies(words, graph):
         for i in range(len(word) - 1):
             graph[word[i]][word[i + 1]] += 1
         graph[word[-1]]['.'] += 1
+        graph['#'][word[0]] += 1
+
+
+def random_next_letter(frequencies):
+    # pick random letter using frequencies as weights
+    keys, weights = zip(*frequencies.items())
+    random_value = random.choices(keys, weights=weights)[0]
+
+    return random_value
 
 
 if __name__ == '__main__':
-    english_words = load_words()
-    word_graph = create_empty_edge_list()
-    count_frequencies(english_words, word_graph)
-    print(word_graph['a']['.'])
+    f = {'a': 9, 'b': 9}
+    print(random_next_letter(f))
+
