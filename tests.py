@@ -26,6 +26,8 @@ class TestCountFrequencies(unittest.TestCase):
     def testAA(self): self.assertEqual(self.graph['a']['a'], 255)
     def testII(self): self.assertEqual(self.graph['i']['i'], 579)
     def testGG(self): self.assertEqual(self.graph['g']['g'], 2113)
+    def testStart(self): self.assertEqual(self.graph['a']['#'], 0)
+    def testEnd(self): self.assertEqual(self.graph['.']['a'], 0)
 
 
 
